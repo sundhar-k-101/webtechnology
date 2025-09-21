@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Styling Techniques Demo</title>
+
+    <!-- Internal CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+
+        .internal-style {
+            color: darkblue;
+            background-color: lightgray;
+            padding: 10px;
+            border: 1px solid #333;
+            margin-top: 10px;
+        }
+
+        /* This is where external CSS would go if linked */
+        /* <link rel="stylesheet" href="styles.css"> */
+    </style>
+</head>
+<body>
+
+    <h1>CSS Styling Techniques</h1>
+
+    <!-- Inline CSS -->
+    <p style="color: green; font-weight: bold;">
+        This paragraph uses <strong>inline CSS</strong> to set the text color to green and bold.
+    </p>
+
+    <!-- Internal CSS -->
+    <p class="internal-style">
+        This paragraph uses <strong>internal CSS</strong> defined in the &lt;style&gt; tag in the head.
+    </p>
+
+    <!-- Simulated External CSS -->
+    <p class="external-style">
+        This paragraph would use <strong>external CSS</strong> if the stylesheet was linked.
+    </p>
+
+</body>
+</html>
