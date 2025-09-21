@@ -1,0 +1,72 @@
+<?php
+// ---------- Configuration ----------
+$host = 'localhost';
+$user = 'root';       // Change to your MySQL username
+$pass = '';           // Change to your MySQL password
+$dbname = 'simple_app';
+
+// ---------- Connect to MySQL ----------
+$conn = new mysqli($host, $user, $pass);
+
+// Create DB if not exists
+$conn->query("CREATE DATABASE IF NOT EXISTS $dbname");
+$conn->select_db($dbname);
+
+// Create table if not exists
+$conn->query("CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+)");
+
+// ---------- Handle Form Submission ----------
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $conn->real_escape_string($_POST['name']);
+    if (!empty($name)) {
+        $conn->query("INSERT INTO users (name) VALUES ('$name')");
+    }
+}
+
+// ---------- Fetch Users ----------
+$result = $conn->query("SELECT * FROM users");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PHP MySQL Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f9f9f9;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            width: 250px;
+        }
+        button {
+            padding: 5px 10px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Name</h1>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Your name..." required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Stored Names</h2>
+    <ul>
+        <?php while($row = $result->fetch_assoc()): ?>
+            <li><?= htmlspecialchars($row['name']) ?></li>
+        <?php endwhile; ?>
+    </ul>
+</body>
+</html>
